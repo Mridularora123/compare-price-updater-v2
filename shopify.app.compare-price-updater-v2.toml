@@ -1,0 +1,22 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "f942a6723949e18246397b0b99a9a5eb"
+name = "compare-price-updater-v2"
+application_url = "https://compare-price-updater-v2.onrender.com"
+embedded = true
+
+[build]
+automatically_update_urls_on_dev = true
+
+[webhooks]
+api_version = "2026-10"
+
+[access_scopes]
+scopes = "write_products"
+
+[auth]
+redirect_urls = [
+  "https://compare-price-updater-v2.onrender.com/auth/callback",
+  "https://compare-price-updater-v2.onrender.com/auth/shopify/callback",
+  "https://compare-price-updater-v2.onrender.com/api/auth/callback"
+]
