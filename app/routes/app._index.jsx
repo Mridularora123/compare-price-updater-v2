@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useFetcher } from "react-router";
 import { boundary } from "@shopify/shopify-app-react-router/server";
 import { authenticate } from "../shopify.server";
-import { calculateCompareAtPrice } from "../utils/comparePrice";
+import { calculateDiscountedPrice } from "../utils/comparePrice";
 
 export const loader = async ({ request }) => {
   await authenticate.admin(request);
@@ -77,13 +77,28 @@ export const action = async ({ request }) => {
       continue;
     }
 
-    const variants = product.variants.nodes.map((variant) => ({
-      id: variant.id,
-      compareAtPrice: calculateCompareAtPrice(
-        variant.price,
-        discount
-      ),
-    }));
+    const variants = product.variants.nodes.map((variant) => {
+      // Always preserve the original price
+      const originalPrice = variant.compareAtPrice || variant.price;
+
+      // Restore original price and remove compare-at price
+      if (discount === 0) {
+        return {
+          id: variant.id,
+          price: originalPrice,
+          compareAtPrice: null,
+        };
+      }
+
+      return {
+        id: variant.id,
+        price: calculateDiscountedPrice(
+          originalPrice,
+          discount
+        ),
+        compareAtPrice: originalPrice,
+      };
+    });
 
     const updateResponse = await admin.graphql(
       `#graphql

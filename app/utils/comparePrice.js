@@ -1,9 +1,10 @@
-export function calculateCompareAtPrice(price, discount) {
+export function calculateDiscountedPrice(price, discount) {
   if (discount <= 0) {
-    return null;
+    return Number(price).toFixed(2);
   }
 
-  return Math.round(
-    Number(price) / (1 - discount / 100)
-  ).toString();
+  return (
+    Number(price) *
+    (1 - discount / 100)
+  ).toFixed(2);
 }
