@@ -79,7 +79,7 @@ export const action = async ({ request }) => {
 
     const variants = product.variants.nodes.map((variant) => {
       // Always preserve the original price
-      const originalPrice = variant.compareAtPrice || variant.price;
+      const originalPrice = variant.compareAtPrice ?? variant.price;
 
       // Restore original price and remove compare-at price
       if (discount === 0) {
