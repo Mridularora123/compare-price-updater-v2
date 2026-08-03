@@ -73,6 +73,10 @@ export const action = async ({ request }) => {
 
   for (const product of responseJson.data.products.nodes) {
 
+    if (product.title !== "Designer Zut Mull Cotton Suit with Elegant Black Detailing") {
+      continue;
+    }
+
     if (!product.variants.nodes.length) {
       continue;
     }
