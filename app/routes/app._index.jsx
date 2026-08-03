@@ -183,7 +183,7 @@ export default function Index() {
 
           <s-text-field
             label="Discount Percentage"
-            placeholder="Enter a discount percentage (Example : 5)"
+            placeholder="Enter a discount percentage (Example :- 5)"
             value={discount}
             onInput={(e) => setDiscount(e.target.value)}
           ></s-text-field>
